@@ -23,6 +23,7 @@ public class MainDialog {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Place your battleships:");
+            String area;
 
             System.out.println("Place a battleship (four-funnel ship):");
             System.out.println("Head:");
@@ -122,7 +123,6 @@ public class MainDialog {
             }
 
             System.out.println("Place four submarines (single-funnel ships):");
-            String area;
             for (int i = 6; i < 10; i++) {
                 area = reader.readLine();
                 while (!isTheStringOk(area) || isTheFieldTaken(area, myField)) {
@@ -140,7 +140,22 @@ public class MainDialog {
 
                 theBattlefield.showTheSea(myField, opponentField);
             }
-
+/*
+            myShips[0] = new JustAnotherShip(new Coordinates("A1"), new Coordinates("A4"));
+            myShips[1] = new JustAnotherShip(new Coordinates("A6"), new Coordinates("A8"));
+            myShips[2] = new JustAnotherShip(new Coordinates("C1"), new Coordinates("E1"));
+            myShips[3] = new JustAnotherShip(new Coordinates("G1"), new Coordinates("H1"));
+            myShips[4] = new JustAnotherShip(new Coordinates("A10"), new Coordinates("B10"));
+            myShips[5] = new JustAnotherShip(new Coordinates("J1"), new Coordinates("J2"));
+            myShips[6] = new JustAnotherShip(new Coordinates("C3"));
+            myShips[7] = new JustAnotherShip(new Coordinates("E7"));
+            myShips[8] = new JustAnotherShip(new Coordinates("G4"));
+            myShips[9] = new JustAnotherShip(new Coordinates("H9"));
+            for (JustAnotherShip ship : myShips) {
+                myField.placeTheShip(ship);
+            }
+            theBattlefield.showTheSea(myField, opponentField);
+*/
             Player player = new Player(myShips, new Random().nextInt() % 2 == 0);
             ArtificialIntelligence theEvilMind = new ArtificialIntelligence();
             JustAnotherShip[] opponentShips = theEvilMind.generateTheEvilFleet(opponentField);
@@ -151,9 +166,10 @@ public class MainDialog {
 
             while (player.lifeTotal > 0 && opponent.lifeTotal > 0) {
                 if (!player.passTheTurn) {
+                    System.out.println("Your turn!");
                     System.out.println("Target:");
                     area = reader.readLine();
-                    while (!isTheStringOk(area) || isTheFieldTaken(area, myField)) {
+                    while (!isTheStringOk(area) || !isTheFieldTaken(area, myField)) {
                         if (!isTheStringOk(area)) {
                             System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
                         }
@@ -175,7 +191,7 @@ public class MainDialog {
                         case ship:
                             System.out.println("KADOOM");
                             opponentField.setStatus(boomCoords, TheSea.SeaAreaType.shot);
-                            for (JustAnotherShip ship : myShips) {
+                            for (JustAnotherShip ship : opponentShips) {
                                 if (ship.takeTheArea(boomCoords)) {
                                     opponentField.setTheEnvironment(ship.damage());
                                 }
@@ -184,6 +200,14 @@ public class MainDialog {
                             break;
                     }
                 } else {
+                    System.out.println("Opponent's turn.");
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     System.out.println("BOOM");
                     Coordinates boomCoords = theEvilMind.fire(myField);
                     switch (myField.getStatus(boomCoords)) {
@@ -191,14 +215,14 @@ public class MainDialog {
                             System.out.println("Ha, missed!");
                         case nearTheShip:
                             System.out.println("That was close!");
-                            opponentField.setStatus(boomCoords, TheSea.SeaAreaType.miss);
+                            myField.setStatus(boomCoords, TheSea.SeaAreaType.miss);
                             player.passTheTurn = false;
                             opponent.passTheTurn = true;
                             break;
                         case ship:
                             System.out.println("KADOOM");
                             myField.setStatus(boomCoords, TheSea.SeaAreaType.shot);
-                            for (JustAnotherShip ship : opponentShips) {
+                            for (JustAnotherShip ship : myShips) {
                                 if (ship.takeTheArea(boomCoords)) {
                                     myField.setTheEnvironment(ship.damage());
                                 }
