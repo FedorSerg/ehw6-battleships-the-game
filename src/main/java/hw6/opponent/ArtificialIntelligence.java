@@ -4,14 +4,26 @@ import hw6.navigation.Coordinates;
 import hw6.navigation.TheSea;
 import hw6.ships.JustAnotherShip;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class ArtificialIntelligence {
-    public Coordinates detectedShip = new Coordinates(-1, -1);
+    private ArrayList priority;
+
+    public ArtificialIntelligence() {
+        priority = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                priority.add(new Coordinates(i, j));
+            }
+        }
+        Collections.shuffle(priority);
+    }
 
     public JustAnotherShip[] generateTheEvilFleet(TheSea field) {
         JustAnotherShip[] generated = new JustAnotherShip[10];
-        switch (new Random().nextInt(3)) {
+        switch (new Random().nextInt(4)) {
             case 0:
                 generated[0] = new JustAnotherShip(new Coordinates("G3"), new Coordinates("J3"));
 
@@ -29,11 +41,11 @@ public class ArtificialIntelligence {
             case 1:
                 generated[0] = new JustAnotherShip(new Coordinates("B2"), new Coordinates("B5"));
 
-                generated[1] = new JustAnotherShip(new Coordinates("I7"), new Coordinates("I5"));
-                generated[2] = new JustAnotherShip(new Coordinates("D2"), new Coordinates("D3"));
+                generated[1] = new JustAnotherShip(new Coordinates("I7"), new Coordinates("I9"));
+                generated[2] = new JustAnotherShip(new Coordinates("B9"), new Coordinates("D9"));
 
                 generated[3] = new JustAnotherShip(new Coordinates("E7"), new Coordinates("D7"));
-                generated[4] = new JustAnotherShip(new Coordinates("I2"), new Coordinates("H2"));
+                generated[4] = new JustAnotherShip(new Coordinates("D2"), new Coordinates("D3"));
                 generated[5] = new JustAnotherShip(new Coordinates("F1"), new Coordinates("G1"));
                 generated[6] = new JustAnotherShip(new Coordinates("E5"));
                 generated[7] = new JustAnotherShip(new Coordinates("G4"));
@@ -43,8 +55,8 @@ public class ArtificialIntelligence {
             case 2:
                 generated[0] = new JustAnotherShip(new Coordinates("C6"), new Coordinates("C9"));
 
-                generated[1] = new JustAnotherShip(new Coordinates("I7"), new Coordinates("I5"));
-                generated[2] = new JustAnotherShip(new Coordinates("D2"), new Coordinates("D3"));
+                generated[1] = new JustAnotherShip(new Coordinates("I5"), new Coordinates("G5"));
+                generated[2] = new JustAnotherShip(new Coordinates("G8"), new Coordinates("G10"));
 
                 generated[3] = new JustAnotherShip(new Coordinates("E2"), new Coordinates("E3"));
                 generated[4] = new JustAnotherShip(new Coordinates("I1"), new Coordinates("H1"));
@@ -76,39 +88,22 @@ public class ArtificialIntelligence {
         return generated;
     }
 
-    public Coordinates fire(TheSea field) {
-        if (detectedShip.getColumn() == -1 || detectedShip.getLine() == -1) {
-            return new Coordinates(new Random().nextInt(9), new Random().nextInt(9));
-        } else {
-            if (detectedShip.getColumn() > 0 && isItEvilFireable(field, -1, 0)) {
-                return new Coordinates(detectedShip.getColumn() - 1, detectedShip.getLine());
+    public Coordinates fire() {
+        Coordinates target = (Coordinates) priority.get(0);
+        removeFromPriority(target);
+        return target;
+    }
 
-            } else if (detectedShip.getColumn() < 9 && isItEvilFireable(field, 1, 0)) {
-                return new Coordinates(detectedShip.getColumn() + 1, detectedShip.getLine());
-
-            } else if (detectedShip.getLine() > 0 && isItEvilFireable(field, 0, -1)) {
-                return new Coordinates(detectedShip.getColumn(), detectedShip.getLine() - 1);
-
-            } else if (detectedShip.getLine() < 9 && isItEvilFireable(field, 0, 1)) {
-                return new Coordinates(detectedShip.getColumn(), detectedShip.getLine() + 1);
-            } else {
-                detectedShip.setCoords(-1, -1);
-                return new Coordinates(new Random().nextInt(9), new Random().nextInt(9));
-            }
+    public void setHighPriority(Coordinates coord) {
+        if (priority.indexOf(coord) != -1) {
+            priority.add(0, priority.get(priority.indexOf(coord)));
+            priority.remove(priority.lastIndexOf(coord));
         }
     }
 
-    private boolean isItEvilFireable(TheSea field, int columnShift, int lineShift) {
-        return detectedShip.getColumn() > 0 &&
-                (field.getStatus(
-                        new Coordinates(detectedShip.getColumn() + columnShift,
-                                detectedShip.getLine() + lineShift)).equals(TheSea.SeaAreaType.empty)
-                        || field.getStatus(
-                        new Coordinates(detectedShip.getColumn() + columnShift,
-                                detectedShip.getLine() + lineShift)).equals(TheSea.SeaAreaType.nearTheShip)
-                        || field.getStatus(
-                        new Coordinates(detectedShip.getColumn() + columnShift,
-                                detectedShip.getLine() + lineShift)).equals(TheSea.SeaAreaType.ship));
-
+    public void removeFromPriority(Coordinates coord) {
+        if (priority.indexOf(coord) != -1) {
+            priority.remove(priority.indexOf(coord));
+        }
     }
 }
