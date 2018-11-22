@@ -6,30 +6,39 @@ public class TheSea {
     public final int width = 10;
     public final int height = 10;
 
-    public enum SeaArea {empty, nearTheShip, ship, shot}
+    public enum SeaAreaType {empty, nearTheShip, ship, shot, miss}
 
-    SeaArea[][] battlefield;
+    SeaAreaType[][] battlefield;
 
     public TheSea() {
-        battlefield = new SeaArea[width][height];
+        battlefield = new SeaAreaType[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                battlefield[i][j] = SeaArea.empty;
+                battlefield[i][j] = SeaAreaType.empty;
             }
         }
     }
 
-    public SeaArea getStatus(Coordinates coord) {
+    public void placeTheShip(JustAnotherShip ship) {
+        for (Coordinates coord : ship.getCoords()) {
+            battlefield[coord.column][coord.line] = SeaAreaType.ship;
+        }
+        for (Coordinates coord : ship.getEnvironment()) {
+            battlefield[coord.column][coord.line] = SeaAreaType.nearTheShip;
+        }
+    }
+
+    public void setTheEnvironment(Coordinates[] coords) {
+        for (Coordinates coord : coords) {
+            battlefield[coord.column][coord.line] = SeaAreaType.miss;
+        }
+    }
+
+    public SeaAreaType getStatus(Coordinates coord) {
         return battlefield[coord.column][coord.line];
     }
 
-    public void placeTheShip(JustAnotherShip ship) {
-        for (Coordinates coord : ship.getCoords()) {
-            battlefield[coord.column][coord.line] = SeaArea.ship;
-        }
-        for (Coordinates coord : ship.getEnvironment()) {
-            battlefield[coord.column][coord.line] = SeaArea.nearTheShip;
-        }
+    public void setStatus(Coordinates coord, SeaAreaType newType) {
+        battlefield[coord.column][coord.line] = newType;
     }
-
 }

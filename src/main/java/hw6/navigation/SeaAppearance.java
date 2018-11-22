@@ -19,6 +19,9 @@ public class SeaAppearance {
                     case shot:
                         firstField += "X|";
                         break;
+                    case miss:
+                        firstField += "*|";
+                        break;
                 }
             }
 
@@ -26,10 +29,11 @@ public class SeaAppearance {
                 switch (opponentField.battlefield[i][j]) {
                     case nearTheShip:
                     case empty:
+                    case ship:
                         secondField += "_|";
                         break;
-                    case ship:
-                        secondField += "O|";
+                    case miss:
+                        secondField += "*|";
                         break;
                     case shot:
                         secondField += "X|";

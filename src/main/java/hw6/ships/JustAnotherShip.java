@@ -8,7 +8,12 @@ public class JustAnotherShip {
     int durability;
 
     enum ShipType {horizontal, vertical}
+
     ShipType type;
+
+    public JustAnotherShip(@NotNull Coordinates coordinate) {
+        this(coordinate, coordinate);
+    }
 
     public JustAnotherShip(@NotNull Coordinates head, @NotNull Coordinates tail) {
 
@@ -71,11 +76,12 @@ public class JustAnotherShip {
         return false;
     }
 
-    public void damage(Coordinates coords) {
+    public Coordinates[] damage() {
         durability--;
         if (durability <= 0) {
-            this.getEnvironment();
+            return this.getEnvironment();
         }
+        return new Coordinates[0];
     }
 
     public Coordinates[] getEnvironment() {
@@ -170,5 +176,14 @@ public class JustAnotherShip {
 
     public Coordinates[] getCoords() {
         return this.coords;
+    }
+
+    public boolean takeTheArea(Coordinates coord) {
+        for (Coordinates area:this.coords) {
+            if(coord.equals(area)){
+                return true;
+            }
+        }
+        return false;
     }
 }
