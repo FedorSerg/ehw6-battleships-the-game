@@ -1,0 +1,181 @@
+package hw6.dialog;
+
+import hw6.navigation.Coordinates;
+import hw6.navigation.SeaAppearance;
+import hw6.navigation.TheSea;
+import hw6.opponent.ArtificialIntelligence;
+import hw6.ships.JustAnotherShip;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class MainDialog {
+    public void startTheGame() {
+        System.out.println();
+        System.out.println("                          oOOooOo  ");
+        System.out.println("                     oOoo||   oOoOO");
+        System.out.println("                    ||   ||  ||    ");
+        System.out.println("                  { BATTLESHIPS }  ");
+        System.out.println("                   \\ THE  GAME /  ");
+        System.out.println();
+        JustAnotherShip[] myShips = new JustAnotherShip[10];
+        SeaAppearance theBattlefield = new SeaAppearance();
+        TheSea myField = new TheSea();
+        TheSea opponentField = new TheSea();
+        theBattlefield.showTheSea(myField, opponentField);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println("Place your battleships:");
+
+            System.out.println("Place a battleship (four-funnel ship):");
+            System.out.println("Head:");
+            String area1 = reader.readLine();
+            while (!isTheStringOk(area1) || isTheFieldTaken(area1, myField)) {
+                if (!isTheStringOk(area1)) {
+                    System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                }
+                if (isTheFieldTaken(area1, myField)) {
+                    System.out.println("The area is already taken");
+                }
+                area1 = reader.readLine();
+            }
+            System.out.println("Tail:");
+            String area2 = reader.readLine();
+            while (!isTheStringOk(area2) || isTheFieldTaken(area2, myField) ||
+                    !isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 4)) {
+                if (!isTheStringOk(area2)) {
+                    System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                }
+                if (isTheFieldTaken(area2, myField)) {
+                    System.out.println("The area is already taken");
+                }
+                if (!isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 4)) {
+                    System.out.println("The ship must be straight and long enough");
+                }
+                area2 = reader.readLine();
+            }
+            myShips[0] = new JustAnotherShip(new Coordinates(area1), new Coordinates(area2));
+            myField.placeTheShip(myShips[0]);
+            theBattlefield.showTheSea(myField, opponentField);
+
+            System.out.println("Place two cruisers (three-funnel ships):");
+            for (int i = 1; i < 3; i++) {
+                System.out.println("Head:");
+                area1 = reader.readLine();
+                while (!isTheStringOk(area1) || isTheFieldTaken(area1, myField)) {
+                    if (!isTheStringOk(area1)) {
+                        System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                    }
+                    if (isTheFieldTaken(area1, myField)) {
+                        System.out.println("The area is already taken");
+                    }
+                    area1 = reader.readLine();
+                }
+                System.out.println("Tail:");
+                area2 = reader.readLine();
+                while (!isTheStringOk(area2) || isTheFieldTaken(area2, myField) ||
+                        !isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 3)) {
+                    if (!isTheStringOk(area2)) {
+                        System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                    }
+                    if (isTheFieldTaken(area2, myField)) {
+                        System.out.println("The area is already taken");
+                    }
+                    if (!isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 3)) {
+                        System.out.println("The ship must be straight and long enough");
+                    }
+                    area2 = reader.readLine();
+                }
+                myShips[i] = new JustAnotherShip(new Coordinates(area1), new Coordinates(area2));
+                myField.placeTheShip(myShips[i]);
+                theBattlefield.showTheSea(myField, opponentField);
+            }
+
+            System.out.println("Place three destroyers (two-funnel ships):");
+            for (int i = 1; i < 3; i++) {
+                System.out.println("Head:");
+                area1 = reader.readLine();
+                while (!isTheStringOk(area1) || isTheFieldTaken(area1, myField)) {
+                    if (!isTheStringOk(area1)) {
+                        System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                    }
+                    if (isTheFieldTaken(area1, myField)) {
+                        System.out.println("The area is already taken");
+                    }
+                    area1 = reader.readLine();
+                }
+                System.out.println("Tail:");
+                area2 = reader.readLine();
+                while (!isTheStringOk(area2) || isTheFieldTaken(area2, myField) ||
+                        !isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 2)) {
+                    if (!isTheStringOk(area2)) {
+                        System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                    }
+                    if (isTheFieldTaken(area2, myField)) {
+                        System.out.println("The area is already taken");
+                    }
+                    if (!isTheShipNormEnough(new Coordinates(area1), new Coordinates(area2), 2)) {
+                        System.out.println("The ship must be straight and long enough");
+                    }
+                    area2 = reader.readLine();
+                }
+                myShips[i] = new JustAnotherShip(new Coordinates(area1), new Coordinates(area2));
+                myField.placeTheShip(myShips[i]);
+                theBattlefield.showTheSea(myField, opponentField);
+            }
+
+            System.out.println("Place four submarines (single-funnel ships):");
+            for (int i = 6; i < 10; i++) {
+                String area = reader.readLine();
+                while (!isTheStringOk(area) || isTheFieldTaken(area, myField)) {
+                    if (!isTheStringOk(area)) {
+                        System.err.println("Incorrect input, you should enter coordinates like 'A1', 'J10'");
+                    }
+                    if (isTheFieldTaken(area, myField)) {
+                        System.out.println("The area is already taken");
+                    }
+                    area = reader.readLine();
+                }
+
+                myShips[i] = new JustAnotherShip(new Coordinates(area), new Coordinates(area));
+                myField.placeTheShip(myShips[i]);
+
+                theBattlefield.showTheSea(myField, opponentField);
+            }
+
+            Player player = new Player(myShips, new Random().nextInt()%2 == 0);
+            ArtificialIntelligence theEvilMind = new ArtificialIntelligence();
+            Player opponent = new Player( theEvilMind.generateField(), !player.passTheTurn);
+
+            while(player.lifeTotal > 0 && opponent.lifeTotal > 0) {
+
+            }
+            if(player.lifeTotal > 0) {
+                System.out.println("You won!");
+                System.out.println("Congratulations!");
+            }
+
+        } catch (IOException er) {
+            er.printStackTrace();
+        }
+
+    }
+
+    private boolean isTheStringOk(@NotNull String area) {
+        return (area.length() > 1 && area.length() <= 3 &&
+                area.substring(0, 1).matches("[A-J]") &&
+                area.substring(1).matches("[1-9]|10"));
+    }
+
+    private boolean isTheFieldTaken(@NotNull String area, TheSea myField) {
+        return isTheStringOk(area) && !(myField.getStatus(new Coordinates(area)).equals(TheSea.SeaArea.empty));
+    }
+
+    private boolean isTheShipNormEnough(Coordinates area1, Coordinates area2, int l) {
+        return (area1.getLine() == area2.getLine() || area1.getColumn() == area2.getColumn()) &&
+                Math.abs(area1.getLine() - area2.getLine() + area1.getColumn() - area2.getColumn()) + 1 == l;
+    }
+}
