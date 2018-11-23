@@ -1,5 +1,11 @@
 package hw6.navigation;
 
+/**
+ * The class does nothing but shows the visual design of the game.
+ *
+ * @author Fedorov Sergei
+ * @version 1.2
+ */
 public class SeaAppearance {
     public void showTheSea(TheSea myField, int myLife, TheSea opponentField, int opponentLife) {
         String firstField = "", secondField = "";
