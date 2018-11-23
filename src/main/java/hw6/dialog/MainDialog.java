@@ -150,20 +150,6 @@ public class MainDialog {
                 theBattlefield.showTheSea(myField, 0, opponentField, 0);
             }
 
-            /*myShips[0] = new JustAnotherShip(new Coordinates("A1"), new Coordinates("A4"));
-            myShips[1] = new JustAnotherShip(new Coordinates("A6"), new Coordinates("A8"));
-            myShips[2] = new JustAnotherShip(new Coordinates("C1"), new Coordinates("E1"));
-            myShips[3] = new JustAnotherShip(new Coordinates("G1"), new Coordinates("H1"));
-            myShips[4] = new JustAnotherShip(new Coordinates("A10"), new Coordinates("B10"));
-            myShips[5] = new JustAnotherShip(new Coordinates("J1"), new Coordinates("J2"));
-            myShips[6] = new JustAnotherShip(new Coordinates("C3"));
-            myShips[7] = new JustAnotherShip(new Coordinates("E7"));
-            myShips[8] = new JustAnotherShip(new Coordinates("G4"));
-            myShips[9] = new JustAnotherShip(new Coordinates("H9"));
-            for (JustAnotherShip ship : myShips) {
-                myField.placeTheShip(ship);
-            }*/
-
             Player player = new Player(myShips, new Random().nextInt() % 2 == 0);
             ArtificialIntelligence theEvilMind = new ArtificialIntelligence();
             JustAnotherShip[] opponentShips = theEvilMind.generateTheEvilFleet(opponentField);
