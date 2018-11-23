@@ -6,7 +6,7 @@ public class JustAnotherShipTest {
 
     @Test
     public void testGetEnvironment() {
-        /*garage is selling*/
+        
     }
 
     @Test
