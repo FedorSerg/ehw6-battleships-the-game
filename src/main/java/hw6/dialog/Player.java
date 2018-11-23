@@ -3,6 +3,12 @@ package hw6.dialog;
 import hw6.ships.JustAnotherShip;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Just an adjuvant class. Represents the human and the computer as the players.
+ *
+ * @author Fedorov Sergei
+ * @version 1
+ */
 public class Player {
     public int lifeTotal;
     boolean passTheTurn;
