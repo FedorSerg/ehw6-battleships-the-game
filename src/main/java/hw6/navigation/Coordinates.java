@@ -12,16 +12,18 @@ import java.util.ArrayList;
  * @version 1.5
  */
 public class Coordinates {
-    int column;
-    int line;
+    private int column;
+    private int line;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Coordinates that = (Coordinates) o;
-        return column == that.column &&
-                line == that.line;
+    public Coordinates(int column, int line) {
+        this.column = column;
+        this.line = line;
+    }
+
+    public Coordinates(@NotNull String area) {
+
+        this.column = (int) area.charAt(0) - 65;
+        this.line = Integer.parseInt("" + area.substring(1)) - 1;
     }
 
     public int getColumn() {
@@ -30,6 +32,15 @@ public class Coordinates {
 
     public int getLine() {
         return this.line;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinates that = (Coordinates) o;
+        return column == that.column &&
+                line == that.line;
     }
 
     public Coordinates[] getEnvironment() {
@@ -45,14 +56,4 @@ public class Coordinates {
         return newResult;
     }
 
-    public Coordinates(int column, int line) {
-        this.column = column;
-        this.line = line;
-    }
-
-    public Coordinates(@NotNull String area) {
-
-        this.column = (int) area.charAt(0) - 65;
-        this.line = Integer.parseInt("" + area.substring(1)) - 1;
-    }
 }

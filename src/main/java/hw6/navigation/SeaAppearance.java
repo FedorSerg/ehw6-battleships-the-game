@@ -65,73 +65,73 @@ public class SeaAppearance {
     private String[] drawLife(int life) {
         switch (life) {
             case 0:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "  | |",
                         "  |_|"
                 };
             case 1:
-                return new String[] {
+                return new String[]{
                         "     ",
                         "   /|",
                         "    |"
                 };
             case 2:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "   _|",
                         "  |__"
                 };
             case 3:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "   _|",
                         "   _|"
                 };
             case 4:
-                return new String[] {
+                return new String[]{
                         "     ",
                         "  |_|",
                         "    |"
                 };
             case 5:
-                return new String[] {
+                return new String[]{
                         "   __",
                         "  |_ ",
                         "   _|"
                 };
             case 6:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "  |_ ",
                         "  |_|"
                 };
             case 7:
-                return new String[] {
+                return new String[]{
                         "   __",
                         "    /",
                         "   | "
                 };
             case 8:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "  |_|",
                         "  |_|"
                 };
             case 9:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "  |_|",
                         "   / "
                 };
             case 10:
-                return new String[] {
+                return new String[]{
                         "   _ ",
                         "| | |",
                         "| |_|"
                 };
             default:
-                return new String[] {
+                return new String[]{
                         " _   ",
                         " / | ",
                         " * * "

@@ -268,12 +268,6 @@ public class MainDialog {
         return isTheStringOk(area) && !(myField.getStatus(new Coordinates(area)).equals(TheSea.SeaAreaType.empty));
     }
 
-    private boolean isTheFieldFireable(@NotNull String area, TheSea myField) {
-        return isTheStringOk(area) && (myField.getStatus(new Coordinates(area)).equals(TheSea.SeaAreaType.empty) ||
-                myField.getStatus(new Coordinates(area)).equals(TheSea.SeaAreaType.nearTheShip) ||
-                myField.getStatus(new Coordinates(area)).equals(TheSea.SeaAreaType.ship));
-    }
-
     private boolean isTheShipNormEnough(@NotNull Coordinates area1, Coordinates area2, int l) {
         return (area1.getLine() == area2.getLine() || area1.getColumn() == area2.getColumn()) &&
                 Math.abs(area1.getLine() - area2.getLine() + area1.getColumn() - area2.getColumn()) + 1 == l;

@@ -10,8 +10,8 @@ import hw6.ships.JustAnotherShip;
  * @version 1.1
  */
 public class TheSea {
-    public final int width = 10;
-    public final int height = 10;
+    final int width = 10;
+    final int height = 10;
 
     public enum SeaAreaType {empty, nearTheShip, ship, shot, miss}
 
@@ -28,24 +28,24 @@ public class TheSea {
 
     public void placeTheShip(JustAnotherShip ship) {
         for (Coordinates coord : ship.getCoords()) {
-            battlefield[coord.column][coord.line] = SeaAreaType.ship;
+            battlefield[coord.getColumn()][coord.getLine()] = SeaAreaType.ship;
         }
         for (Coordinates coord : ship.getEnvironment()) {
-            battlefield[coord.column][coord.line] = SeaAreaType.nearTheShip;
+            battlefield[coord.getColumn()][coord.getLine()] = SeaAreaType.nearTheShip;
         }
     }
 
     public void setTheEnvironment(Coordinates[] coords) {
         for (Coordinates coord : coords) {
-            battlefield[coord.column][coord.line] = SeaAreaType.miss;
+            battlefield[coord.getColumn()][coord.getLine()] = SeaAreaType.miss;
         }
     }
 
     public SeaAreaType getStatus(Coordinates coord) {
-        return battlefield[coord.column][coord.line];
+        return battlefield[coord.getColumn()][coord.getLine()];
     }
 
     public void setStatus(Coordinates coord, SeaAreaType newType) {
-        battlefield[coord.column][coord.line] = newType;
+        battlefield[coord.getColumn()][coord.getLine()] = newType;
     }
 }

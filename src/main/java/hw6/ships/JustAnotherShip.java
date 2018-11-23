@@ -45,11 +45,6 @@ public class JustAnotherShip {
         this.durability = this.coords.length;
     }
 
-    @Override
-    public String toString() {
-        return "Column = " + coords[0].getColumn() + "; line = " + coords[0].getLine();
-    }
-
     private boolean isItInTheCorner() {
         if (isItPokesTheBorder() && isItNearTheBorder()) {
             return true;
@@ -185,8 +180,8 @@ public class JustAnotherShip {
     }
 
     public boolean takeTheArea(Coordinates coord) {
-        for (Coordinates area:this.coords) {
-            if(coord.equals(area)){
+        for (Coordinates area : this.coords) {
+            if (coord.equals(area)) {
                 return true;
             }
         }
