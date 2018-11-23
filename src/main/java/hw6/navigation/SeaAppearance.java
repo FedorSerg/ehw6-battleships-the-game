@@ -8,7 +8,8 @@ package hw6.navigation;
  */
 public class SeaAppearance {
     public void showTheSea(TheSea myField, int myLife, TheSea opponentField, int opponentLife) {
-        String firstField = "", secondField = "";
+        String firstField = "";
+        String secondField = "";
 
         System.out.println("                  " + drawLife(myLife)[0] + "      " + drawLife(opponentLife)[0]);
         System.out.println("                  " + drawLife(myLife)[1] + "      " + drawLife(opponentLife)[1]);
