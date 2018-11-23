@@ -12,6 +12,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+/**
+ * The main dialog with a player happends here.
+ * The 'startTheGame' method compiles the functional of all other classes to run the game
+ *
+ * @author Fedorov Sergei
+ * @version 1.4
+ */
 public class MainDialog {
     public void startTheGame() {
         showLogo();
