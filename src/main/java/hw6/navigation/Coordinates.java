@@ -4,6 +4,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+/**
+ * The most important class in the project.
+ * Represents an area of the battlefield.
+ *
+ * @author Fedorov Sergei
+ * @version 1.5
+ */
 public class Coordinates {
     int column;
     int line;

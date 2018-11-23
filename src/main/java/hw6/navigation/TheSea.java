@@ -5,7 +5,7 @@ import hw6.ships.JustAnotherShip;
 /**
  * Represents the sea battlefield.
  * Stores the status of each sea area.
- * 
+ *
  * @author Fedorov Sergei
  * @version 1.1
  */

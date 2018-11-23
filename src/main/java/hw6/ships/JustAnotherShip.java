@@ -3,6 +3,12 @@ package hw6.ships;
 import hw6.navigation.Coordinates;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents the ships.
+ *
+ * @author Fedorov Sergei
+ * @version 1.7
+ */
 public class JustAnotherShip {
     Coordinates[] coords;
     int durability;
