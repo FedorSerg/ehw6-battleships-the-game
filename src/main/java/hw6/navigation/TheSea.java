@@ -2,6 +2,13 @@ package hw6.navigation;
 
 import hw6.ships.JustAnotherShip;
 
+/**
+ * Represents the sea battlefield.
+ * Stores the status of each sea area.
+ * 
+ * @author Fedorov Sergei
+ * @version 1.1
+ */
 public class TheSea {
     public final int width = 10;
     public final int height = 10;
